@@ -1,0 +1,15 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: developer-portal
+  description: Developer portal for service catalog, documentation, and workflow management
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+  tags:
+    - backstage
+    - developer-portal
+    - platform
+spec:
+  type: website
+  owner: user:default/stxkxs
+  lifecycle: production

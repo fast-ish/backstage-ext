@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: stxkxs
+  annotations:
+    github.com/user-login: stxkxs
+spec:
+  profile:
+    displayName: stxkxs
+  memberOf: []
