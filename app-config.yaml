@@ -44,12 +44,13 @@ integrations:
     #   token: ${GHE_TOKEN}
 
 proxy:
-  ### Example for how to add a proxy endpoint for the frontend.
-  ### A typical reason to do this is to handle HTTPS and CORS for internal services.
-  # endpoints:
-  #   '/test':
-  #     target: 'https://example.com'
-  #     changeOrigin: true
+  endpoints:
+    # Argo Workflows API proxy
+    '/argo-workflows/api':
+      target: ${ARGO_WORKFLOWS_URL}
+      changeOrigin: true
+      headers:
+        Authorization: Bearer ${ARGO_WORKFLOWS_TOKEN}
 
 # Reference documentation http://backstage.io/docs/features/techdocs/configuration
 # Note: After experimenting with basic setup, use CI/CD to generate docs
@@ -93,6 +94,49 @@ catalog:
 
 kubernetes:
   # see https://backstage.io/docs/features/kubernetes/configuration for kubernetes configuration options
+  serviceLocatorMethod:
+    type: multiTenant
+  clusterLocatorMethods:
+    - type: config
+      clusters:
+        - url: ${KUBERNETES_API_URL}
+          name: production
+          authProvider: serviceAccount
+          serviceAccountToken: ${KUBERNETES_SA_TOKEN}
+          skipTLSVerify: true
+  customResources:
+    # Argo Rollouts support
+    - group: argoproj.io
+      apiVersion: v1alpha1
+      plural: rollouts
+    - group: argoproj.io
+      apiVersion: v1alpha1
+      plural: analysisruns
+    # Argo Workflows support
+    - group: argoproj.io
+      apiVersion: v1alpha1
+      plural: workflows
+    - group: argoproj.io
+      apiVersion: v1alpha1
+      plural: workflowtemplates
+
+argocd:
+  appLocatorMethods:
+    - type: config
+      instances:
+        - name: production
+          url: ${ARGOCD_URL}
+          token: ${ARGOCD_AUTH_TOKEN}
+
+# Argo Workflows configuration
+argoWorkflows:
+  baseUrl: ${ARGO_WORKFLOWS_URL}
+
+# Argo Rollouts configuration
+argoRollouts:
+  instances:
+    - name: production
+      url: ${ARGO_ROLLOUTS_URL}
 
 # see https://backstage.io/docs/permissions/getting-started for more on the permission framework
 permission:

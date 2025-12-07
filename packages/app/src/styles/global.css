@@ -1,0 +1,168 @@
+/*
+ * Global styles for Backstage enhancements
+ */
+
+/* Google Fonts - Engineer-friendly typography
+ * - Inter: Clean, highly legible UI font with excellent number spacing
+ * - IBM Plex Sans: Technical, professional headings
+ * - JetBrains Mono: Purpose-built for code, ligatures for operators
+ */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* Page enter animation */
+@keyframes pageEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Apply to main content area */
+main,
+[class*="BackstageContent"] {
+  animation: pageEnter 0.4s ease-out;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Enhanced focus states */
+*:focus-visible {
+  outline: 2px solid #2563EB;
+  outline-offset: 2px;
+}
+
+/* Code and monospace styling */
+code, pre, kbd, samp, .monospace {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Source Code Pro', 'Consolas', monospace;
+  font-feature-settings: 'liga' 1, 'calt' 1; /* Enable ligatures */
+}
+
+code {
+  background-color: rgba(37, 99, 235, 0.08);
+  padding: 0.125em 0.375em;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+pre {
+  background-color: #0F172A;
+  color: #E2E8F0;
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  font-size: inherit;
+}
+
+/* Tabular numbers for data-heavy content */
+.tabular-nums,
+table td,
+table th {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Better table styling */
+table {
+  font-feature-settings: 'tnum' 1;
+}
+
+/* Card hover enhancements for Backstage InfoCards */
+[class*="MuiCard-root"],
+[class*="BackstageInfoCard-root"] {
+  transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[class*="MuiCard-root"]:hover,
+[class*="BackstageInfoCard-root"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Button micro-interactions */
+[class*="MuiButton-root"] {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[class*="MuiButton-root"]:hover {
+  transform: translateY(-1px);
+}
+
+[class*="MuiButton-root"]:active {
+  transform: translateY(0);
+}
+
+/* Tab indicator animation */
+[class*="MuiTabs-indicator"] {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Sidebar navigation hover effects */
+[class*="MuiListItem-root"] {
+  transition: background-color 0.2s ease, padding-left 0.2s ease;
+}
+
+/* Chip hover effect */
+[class*="MuiChip-root"] {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[class*="MuiChip-root"]:hover {
+  transform: scale(1.02);
+}
+
+/* Loading shimmer animation */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.loading-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.04) 25%,
+    rgba(0, 0, 0, 0.08) 50%,
+    rgba(0, 0, 0, 0.04) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  main,
+  [class*="BackstageContent"] {
+    animation: none;
+  }
+
+  [class*="MuiCard-root"]:hover,
+  [class*="BackstageInfoCard-root"]:hover {
+    transform: none;
+  }
+}
