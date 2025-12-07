@@ -1,0 +1,98 @@
+/*
+ * Tailwind CSS integration for Backstage
+ *
+ * Note: Preflight (CSS reset) is disabled to avoid conflicts with MUI.
+ * All Tailwind classes are prefixed with 'tw-' to prevent naming collisions.
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Custom utility classes for Backstage patterns
+ */
+@layer utilities {
+  /* Status indicator utilities */
+  .tw-status-ok {
+    @apply tw-bg-backstage-status-ok;
+  }
+
+  .tw-status-warning {
+    @apply tw-bg-backstage-status-warning;
+  }
+
+  .tw-status-error {
+    @apply tw-bg-backstage-status-error;
+  }
+
+  .tw-status-running {
+    @apply tw-bg-backstage-status-running;
+  }
+
+  /* Card utilities matching MUI Paper */
+  .tw-paper {
+    @apply tw-bg-backstage-surface-light tw-rounded-mui tw-shadow-mui-1;
+  }
+
+  .tw-paper-elevated {
+    @apply tw-bg-backstage-surface-light tw-rounded-mui tw-shadow-mui-4;
+  }
+
+  /* Smooth transitions */
+  .tw-transition-card {
+    @apply tw-transition-all tw-duration-mui-standard tw-ease-mui;
+  }
+
+  /* Hover lift effect */
+  .tw-hover-lift {
+    @apply hover:tw--translate-y-0.5 hover:tw-shadow-card-hover tw-transition-card;
+  }
+}
+
+/*
+ * Component layer for Backstage-specific components
+ */
+@layer components {
+  /* Badge styles */
+  .tw-badge {
+    @apply tw-inline-flex tw-items-center tw-px-2 tw-py-1 tw-text-xs tw-font-medium tw-rounded;
+  }
+
+  .tw-badge-success {
+    @apply tw-badge tw-bg-backstage-status-ok tw-text-white;
+  }
+
+  .tw-badge-warning {
+    @apply tw-badge tw-bg-backstage-status-warning tw-text-black;
+  }
+
+  .tw-badge-error {
+    @apply tw-badge tw-bg-backstage-status-error tw-text-white;
+  }
+
+  /* Card with hover effect */
+  .tw-card-interactive {
+    @apply tw-transition-card hover:tw-shadow-card-hover hover:tw--translate-y-1;
+  }
+
+  /* Loading shimmer effect */
+  .tw-shimmer {
+    @apply tw-bg-gradient-to-r tw-from-gray-200 tw-via-gray-100 tw-to-gray-200;
+    background-size: 200% 100%;
+    @apply tw-animate-shimmer;
+  }
+}
+
+/*
+ * Accessibility: Respect reduced motion preference
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

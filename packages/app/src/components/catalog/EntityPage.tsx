@@ -1,4 +1,5 @@
-import { Button, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
+import { EnhancedCard } from '../enhanced';
 import {
   EntityApiDefinitionCard,
   EntityConsumedApisCard,
@@ -34,7 +35,6 @@ import {
   EntityOwnershipCard,
 } from '@backstage/plugin-org';
 import { EntityTechdocsContent } from '@backstage/plugin-techdocs';
-import { EmptyState } from '@backstage/core-components';
 import {
   Direction,
   EntityCatalogGraphCard,
@@ -58,6 +58,13 @@ import {
   isKubernetesAvailable,
 } from '@backstage/plugin-kubernetes';
 
+import {
+  EntityArgoCDOverviewCard,
+  EntityArgoCDHistoryCard,
+  isArgocdAvailable,
+} from '@roadiehq/backstage-plugin-argo-cd';
+
+
 const techdocsContent = (
   <EntityTechdocsContent>
     <TechDocsAddons>
@@ -66,35 +73,6 @@ const techdocsContent = (
   </EntityTechdocsContent>
 );
 
-const cicdContent = (
-  // This is an example of how you can implement your company's logic in entity page.
-  // You can for example enforce that all components of type 'service' should use GitHubActions
-  <EntitySwitch>
-    {/*
-      Here you can add support for different CI/CD services, for example
-      using @backstage-community/plugin-github-actions as follows:
-      <EntitySwitch.Case if={isGithubActionsAvailable}>
-        <EntityGithubActionsContent />
-      </EntitySwitch.Case>
-     */}
-    <EntitySwitch.Case>
-      <EmptyState
-        title="No CI/CD available for this entity"
-        missing="info"
-        description="You need to add an annotation to your component if you want to enable CI/CD for it. You can read more about annotations in Backstage by clicking the button below."
-        action={
-          <Button
-            variant="contained"
-            color="primary"
-            href="https://backstage.io/docs/features/software-catalog/well-known-annotations"
-          >
-            Read more
-          </Button>
-        }
-      />
-    </EntitySwitch.Case>
-  </EntitySwitch>
-);
 
 const entityWarningContent = (
   <>
@@ -127,18 +105,26 @@ const entityWarningContent = (
 const overviewContent = (
   <Grid container spacing={3} alignItems="stretch">
     {entityWarningContent}
-    <Grid item md={6}>
-      <EntityAboutCard variant="gridItem" />
+    <Grid item md={6} xs={12}>
+      <EnhancedCard variant="elevated">
+        <EntityAboutCard variant="gridItem" />
+      </EnhancedCard>
     </Grid>
     <Grid item md={6} xs={12}>
-      <EntityCatalogGraphCard variant="gridItem" height={400} />
+      <EnhancedCard variant="glow">
+        <EntityCatalogGraphCard variant="gridItem" height={400} />
+      </EnhancedCard>
     </Grid>
 
     <Grid item md={4} xs={12}>
-      <EntityLinksCard />
+      <EnhancedCard variant="subtle">
+        <EntityLinksCard />
+      </EnhancedCard>
     </Grid>
     <Grid item md={8} xs={12}>
-      <EntityHasSubcomponentsCard variant="gridItem" />
+      <EnhancedCard>
+        <EntityHasSubcomponentsCard variant="gridItem" />
+      </EnhancedCard>
     </Grid>
   </Grid>
 );
@@ -149,8 +135,19 @@ const serviceEntityPage = (
       {overviewContent}
     </EntityLayout.Route>
 
-    <EntityLayout.Route path="/ci-cd" title="CI/CD">
-      {cicdContent}
+    <EntityLayout.Route
+      path="/argocd"
+      title="ArgoCD"
+      if={isArgocdAvailable}
+    >
+      <Grid container spacing={3} alignItems="stretch">
+        <Grid item md={12}>
+          <EntityArgoCDOverviewCard />
+        </Grid>
+        <Grid item md={12}>
+          <EntityArgoCDHistoryCard />
+        </Grid>
+      </Grid>
     </EntityLayout.Route>
 
     <EntityLayout.Route
@@ -193,10 +190,6 @@ const websiteEntityPage = (
   <EntityLayout>
     <EntityLayout.Route path="/" title="Overview">
       {overviewContent}
-    </EntityLayout.Route>
-
-    <EntityLayout.Route path="/ci-cd" title="CI/CD">
-      {cicdContent}
     </EntityLayout.Route>
 
     <EntityLayout.Route
