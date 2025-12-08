@@ -1,16 +1,32 @@
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, useTheme } from '@material-ui/core';
 
 const useStyles = makeStyles({
+  '@keyframes logoGlow': {
+    '0%, 100%': {
+      filter: 'drop-shadow(0 0 2px rgba(220, 38, 38, 0.4))',
+    },
+    '50%': {
+      filter: 'drop-shadow(0 0 8px rgba(220, 38, 38, 0.8))',
+    },
+  },
   svg: {
     width: 'auto',
     height: 30,
+    transition: 'transform 0.3s ease, filter 0.3s ease',
+    '&:hover': {
+      transform: 'scale(1.02)',
+      animation: '$logoGlow 2s ease-in-out infinite',
+    },
   },
-  path: {
-    fill: '#7df3e1',
-  },
+  path: (props: { fill: string }) => ({
+    fill: props.fill,
+    transition: 'fill 0.3s ease',
+  }),
 });
 const LogoFull = () => {
-  const classes = useStyles();
+  const theme = useTheme();
+  const primaryColor = theme.palette?.primary?.main || '#2563EB';
+  const classes = useStyles({ fill: primaryColor });
 
   return (
     <svg

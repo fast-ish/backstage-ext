@@ -30,6 +30,26 @@ import GroupIcon from '@material-ui/icons/People';
 import { NotificationsSidebarItem } from '@backstage/plugin-notifications';
 
 const useSidebarLogoStyles = makeStyles({
+  '@keyframes fadeInScale': {
+    '0%': {
+      opacity: 0,
+      transform: 'scale(0.95)',
+    },
+    '100%': {
+      opacity: 1,
+      transform: 'scale(1)',
+    },
+  },
+  '@keyframes slideInLeft': {
+    '0%': {
+      opacity: 0,
+      transform: 'translateX(-10px)',
+    },
+    '100%': {
+      opacity: 1,
+      transform: 'translateX(0)',
+    },
+  },
   root: {
     width: sidebarConfig.drawerWidthClosed,
     height: 3 * sidebarConfig.logoHeight,
@@ -41,6 +61,19 @@ const useSidebarLogoStyles = makeStyles({
   link: {
     width: sidebarConfig.drawerWidthClosed,
     marginLeft: 24,
+    display: 'flex',
+    alignItems: 'center',
+  },
+  logoWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  logoOpen: {
+    animation: '$slideInLeft 0.3s ease-out forwards',
+  },
+  logoClosed: {
+    animation: '$fadeInScale 0.2s ease-out forwards',
   },
 });
 
@@ -51,7 +84,9 @@ const SidebarLogo = () => {
   return (
     <div className={classes.root}>
       <Link to="/" underline="none" className={classes.link} aria-label="Home">
-        {isOpen ? <LogoFull /> : <LogoIcon />}
+        <div className={`${classes.logoWrapper} ${isOpen ? classes.logoOpen : classes.logoClosed}`}>
+          {isOpen ? <LogoFull /> : <LogoIcon />}
+        </div>
       </Link>
     </div>
   );
