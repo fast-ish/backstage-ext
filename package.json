@@ -38,7 +38,13 @@
   },
   "resolutions": {
     "@types/react": "^18",
-    "@types/react-dom": "^18"
+    "@types/react-dom": "^18",
+    "cross-spawn": "^7.0.6",
+    "cookie": "^0.7.2",
+    "http-cache-semantics": "^4.2.0",
+    "semver": "^7.7.0",
+    "tough-cookie": "^4.1.4",
+    "ws": "^8.18.0"
   },
   "prettier": "@backstage/cli/config/prettier",
   "lint-staged": {
