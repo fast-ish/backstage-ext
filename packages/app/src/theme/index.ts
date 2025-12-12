@@ -6,45 +6,56 @@ import { customPageThemes } from './pageThemes';
 /**
  * Custom Backstage themes with enhanced styling
  *
- * Typography:
- * - Headings: IBM Plex Sans (clean, technical, excellent readability)
- * - Body: Inter (highly legible, great for UI)
- * - Code: JetBrains Mono (purpose-built for developers)
+ * Typography - Geist (Vercel's font):
+ * - Headings: Geist Sans (clean, modern)
+ * - Body: Geist Sans (highly legible)
+ * - Code: Geist Mono (clean monospace)
  */
 
-// Font stack with fallbacks
-const fontFamily = '"Inter", "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-const headingFontFamily = '"IBM Plex Sans", "Inter", -apple-system, BlinkMacSystemFont, sans-serif';
-const monoFontFamily = '"JetBrains Mono", "Fira Code", "Source Code Pro", "Consolas", monospace';
+// Font stack with fallbacks - Geist (Vercel)
+const fontFamily = '"Geist Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+const headingFontFamily = '"Geist Sans", "Inter", -apple-system, BlinkMacSystemFont, sans-serif';
+const monoFontFamily = '"Geist Mono", "JetBrains Mono", "Fira Code", monospace';
+
+// Dark theme only
+const darkBg = '#0D1117';  // graphite-950
+
+const themeComponents = {
+  ...componentOverrides,
+  MuiTypography: {
+    styleOverrides: {
+      h1: { fontFamily: headingFontFamily, fontWeight: 600 },
+      h2: { fontFamily: headingFontFamily, fontWeight: 600 },
+      h3: { fontFamily: headingFontFamily, fontWeight: 600 },
+      h4: { fontFamily: headingFontFamily, fontWeight: 500 },
+      h5: { fontFamily: headingFontFamily, fontWeight: 500 },
+      h6: { fontFamily: headingFontFamily, fontWeight: 500 },
+    },
+  },
+  MuiCssBaseline: {
+    styleOverrides: {
+      'html, body': {
+        backgroundColor: darkBg,
+      },
+      '#root': {
+        backgroundColor: darkBg,
+      },
+      'code, pre, kbd, samp': {
+        fontFamily: monoFontFamily,
+      },
+      '.MuiTypography-monospace': {
+        fontFamily: monoFontFamily,
+      },
+    },
+  },
+};
 
 export const customLightTheme = createUnifiedTheme({
   palette: customLightPalette,
   defaultPageTheme: 'home',
   pageTheme: customPageThemes,
   fontFamily,
-  components: {
-    ...componentOverrides,
-    MuiTypography: {
-      styleOverrides: {
-        h1: { fontFamily: headingFontFamily, fontWeight: 600 },
-        h2: { fontFamily: headingFontFamily, fontWeight: 600 },
-        h3: { fontFamily: headingFontFamily, fontWeight: 600 },
-        h4: { fontFamily: headingFontFamily, fontWeight: 500 },
-        h5: { fontFamily: headingFontFamily, fontWeight: 500 },
-        h6: { fontFamily: headingFontFamily, fontWeight: 500 },
-      },
-    },
-    MuiCssBaseline: {
-      styleOverrides: {
-        'code, pre, kbd, samp': {
-          fontFamily: monoFontFamily,
-        },
-        '.MuiTypography-monospace': {
-          fontFamily: monoFontFamily,
-        },
-      },
-    },
-  },
+  components: themeComponents,
 });
 
 export const customDarkTheme = createUnifiedTheme({
@@ -52,29 +63,7 @@ export const customDarkTheme = createUnifiedTheme({
   defaultPageTheme: 'home',
   pageTheme: customPageThemes,
   fontFamily,
-  components: {
-    ...componentOverrides,
-    MuiTypography: {
-      styleOverrides: {
-        h1: { fontFamily: headingFontFamily, fontWeight: 600 },
-        h2: { fontFamily: headingFontFamily, fontWeight: 600 },
-        h3: { fontFamily: headingFontFamily, fontWeight: 600 },
-        h4: { fontFamily: headingFontFamily, fontWeight: 500 },
-        h5: { fontFamily: headingFontFamily, fontWeight: 500 },
-        h6: { fontFamily: headingFontFamily, fontWeight: 500 },
-      },
-    },
-    MuiCssBaseline: {
-      styleOverrides: {
-        'code, pre, kbd, samp': {
-          fontFamily: monoFontFamily,
-        },
-        '.MuiTypography-monospace': {
-          fontFamily: monoFontFamily,
-        },
-      },
-    },
-  },
+  components: themeComponents,
 });
 
 // Re-export utilities
