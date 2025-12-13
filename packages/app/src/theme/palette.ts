@@ -1,88 +1,76 @@
 import { palettes } from '@backstage/theme';
 
 /**
- * Custom color palette - Red, White, and Blue theme
+ * Custom color palette - Dark theme only
+ * Graphite with violet accents
  */
 
-// Color constants
 const colors = {
-  red: {
-    main: '#DC2626',
-    light: '#EF4444',
-    dark: '#B91C1C',
+  // Graphite/dark neutrals
+  graphite: {
+    50: '#F9FAFB',
+    100: '#F3F4F6',
+    200: '#E5E7EB',
+    300: '#D1D5DB',
+    400: '#9CA3AF',
+    500: '#6B7280',
+    600: '#4B5563',
+    700: '#374151',
+    800: '#1F2937',
+    850: '#18202F',
+    900: '#111827',
+    950: '#0D1117',
   },
-  blue: {
-    main: '#2563EB',
-    light: '#3B82F6',
-    dark: '#1D4ED8',
-    navy: '#1E3A5F',
-    deepNavy: '#0F172A',
+  // Violet/purple accent
+  violet: {
+    50: '#F5F3FF',
+    100: '#EDE9FE',
+    200: '#DDD6FE',
+    300: '#C4B5FD',
+    400: '#A78BFA',
+    500: '#8B5CF6',
+    600: '#7C3AED',
+    700: '#6D28D9',
+    800: '#5B21B6',
+    900: '#4C1D95',
   },
   white: '#FFFFFF',
-  offWhite: '#F8FAFC',
-  gray: {
-    light: '#E2E8F0',
-    medium: '#94A3B8',
-    dark: '#475569',
-  },
 };
 
-export const customLightPalette = {
-  ...palettes.light,
-  primary: {
-    main: colors.blue.main,
-    light: colors.blue.light,
-    dark: colors.blue.dark,
-    contrastText: colors.white,
-  },
-  secondary: {
-    main: colors.red.main,
-    light: colors.red.light,
-    dark: colors.red.dark,
-    contrastText: colors.white,
-  },
-  background: {
-    default: colors.offWhite,
-    paper: colors.white,
-  },
-  navigation: {
-    ...palettes.light.navigation,
-    background: colors.blue.navy,
-    indicator: colors.red.main,
-    color: colors.gray.light,
-    selectedColor: colors.white,
-    navItem: {
-      hoverBackground: 'rgba(220, 38, 38, 0.15)',
-    },
-  },
-};
-
-export const customDarkPalette = {
+// Both themes use dark palette
+const darkPalette = {
   ...palettes.dark,
   primary: {
-    main: colors.blue.light,
-    light: '#60A5FA',
-    dark: colors.blue.main,
-    contrastText: colors.white,
+    main: colors.violet[400],
+    light: colors.violet[300],
+    dark: colors.violet[500],
+    contrastText: colors.graphite[950],
   },
   secondary: {
-    main: colors.red.light,
-    light: '#F87171',
-    dark: colors.red.main,
-    contrastText: colors.white,
+    main: colors.graphite[400],
+    light: colors.graphite[300],
+    dark: colors.graphite[500],
+    contrastText: colors.graphite[950],
   },
   background: {
-    default: colors.blue.deepNavy,
-    paper: colors.blue.navy,
+    default: colors.graphite[950],
+    paper: colors.graphite[900],
+  },
+  text: {
+    primary: colors.graphite[100],
+    secondary: colors.graphite[400],
   },
   navigation: {
     ...palettes.dark.navigation,
-    background: colors.blue.deepNavy,
-    indicator: colors.red.main,
-    color: colors.gray.medium,
+    background: colors.graphite[950],
+    indicator: colors.violet[400],
+    color: colors.graphite[400],
     selectedColor: colors.white,
     navItem: {
-      hoverBackground: 'rgba(220, 38, 38, 0.2)',
+      hoverBackground: 'rgba(167, 139, 250, 0.1)',
     },
   },
 };
+
+export const customLightPalette = darkPalette;
+export const customDarkPalette = darkPalette;

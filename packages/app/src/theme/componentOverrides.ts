@@ -1,69 +1,157 @@
 /**
- * MUI component style overrides with animations
+ * MUI component style overrides - Graphite Style
+ * Dark, minimal with violet accents
  */
 
 import { duration, easing } from './animations';
 
+// Violet accent colors for form inputs
+const inputColors = {
+  border: '#374151',        // graphite-700
+  borderHover: '#6B7280',   // graphite-500
+  borderFocus: '#8B5CF6',   // violet-500
+  background: '#111827',    // graphite-900
+  backgroundHover: '#1F2937', // graphite-800
+};
+
 // Component overrides for the unified theme
 export const componentOverrides = {
-  // Card with entrance animation and hover effects
+  // Card - dark with subtle border
   MuiCard: {
     styleOverrides: {
       root: {
-        transition: `box-shadow ${duration.standard}ms ${easing.easeInOut},
-                     transform ${duration.short}ms ${easing.easeOut}`,
+        borderRadius: 8,
+        border: '1px solid #1F2937',  // graphite-800
+        boxShadow: 'none',
+        transition: `border-color ${duration.short}ms ${easing.easeInOut}, box-shadow ${duration.short}ms ${easing.easeInOut}`,
         '&:hover': {
-          transform: 'translateY(-2px)',
-          boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12)',
+          borderColor: '#374151',  // graphite-700
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
         },
       },
     },
   },
 
-  // Paper with subtle shadow transitions
+  // Paper - flat, no shadows
   MuiPaper: {
     styleOverrides: {
       root: {
         backgroundImage: 'none',
-        transition: `box-shadow ${duration.standard}ms ${easing.easeInOut}`,
+      },
+      elevation0: {
+        boxShadow: 'none',
       },
       elevation1: {
-        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06)',
+        boxShadow: '0 1px 2px rgba(0, 0, 0, 0.2)',
       },
       elevation2: {
-        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06)',
+        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.25)',
       },
       elevation3: {
-        boxShadow: '0 6px 12px rgba(0, 0, 0, 0.08), 0 3px 6px rgba(0, 0, 0, 0.06)',
+        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.25)',
       },
     },
   },
 
-  // Button with micro-interactions
+  // Button - flat, subtle hover
   MuiButton: {
     styleOverrides: {
       root: {
         textTransform: 'none' as const,
         fontWeight: 500,
-        borderRadius: 8,
-        transition: `all ${duration.short}ms ${easing.easeInOut}`,
+        borderRadius: 6,
+        boxShadow: 'none',
+        transition: `background-color ${duration.shorter}ms ${easing.easeInOut}`,
         '&:hover': {
-          transform: 'translateY(-1px)',
-        },
-        '&:active': {
-          transform: 'translateY(0)',
+          boxShadow: 'none',
         },
       },
       contained: {
-        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+        boxShadow: 'none',
         '&:hover': {
-          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.15)',
+          boxShadow: 'none',
+        },
+        '&:active': {
+          boxShadow: 'none',
+        },
+      },
+      outlined: {
+        borderWidth: 1,
+      },
+    },
+  },
+
+  // Text field
+  MuiTextField: {
+    styleOverrides: {
+      root: {
+        '& .MuiOutlinedInput-root': {
+          borderRadius: 6,
         },
       },
     },
   },
 
-  // List items for navigation
+  // Input base
+  MuiInputBase: {
+    styleOverrides: {
+      root: {
+        fontSize: '0.875rem',
+      },
+    },
+  },
+
+  // Outlined input - dark styling with violet focus
+  MuiOutlinedInput: {
+    styleOverrides: {
+      root: {
+        borderRadius: 6,
+        backgroundColor: inputColors.background,
+        transition: `border-color ${duration.shorter}ms ${easing.easeInOut}, background-color ${duration.shorter}ms ${easing.easeInOut}`,
+        '&:hover': {
+          backgroundColor: inputColors.backgroundHover,
+        },
+        '&:hover .MuiOutlinedInput-notchedOutline': {
+          borderColor: inputColors.borderHover,
+        },
+        '&.Mui-focused': {
+          backgroundColor: inputColors.background,
+        },
+        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+          borderColor: inputColors.borderFocus,
+          borderWidth: 1,
+        },
+      },
+      notchedOutline: {
+        borderColor: inputColors.border,
+        transition: `border-color ${duration.shorter}ms ${easing.easeInOut}`,
+      },
+    },
+  },
+
+  // Input label - graphite base, violet focus
+  MuiInputLabel: {
+    styleOverrides: {
+      root: {
+        color: '#6B7280',  // graphite-500
+        fontSize: '0.875rem',
+        '&.Mui-focused': {
+          color: '#A78BFA',  // violet-400
+        },
+      },
+    },
+  },
+
+  // Select
+  MuiSelect: {
+    styleOverrides: {
+      select: {
+        borderRadius: 6,
+      },
+    },
+  },
+
+  // List items
   MuiListItem: {
     styleOverrides: {
       root: {
@@ -72,7 +160,7 @@ export const componentOverrides = {
     },
   },
 
-  // Table rows with hover
+  // Table rows
   MuiTableRow: {
     styleOverrides: {
       root: {
@@ -81,17 +169,15 @@ export const componentOverrides = {
     },
   },
 
-  // Tabs with animated indicator
+  // Tabs - subtle violet hover
   MuiTab: {
     styleOverrides: {
       root: {
         textTransform: 'none' as const,
         fontWeight: 500,
-        transition: `color ${duration.short}ms ${easing.easeInOut},
-                     background-color ${duration.short}ms ${easing.easeInOut}`,
-        borderRadius: '4px 4px 0 0',
+        transition: `color ${duration.short}ms ${easing.easeInOut}, background-color ${duration.short}ms ${easing.easeInOut}`,
         '&:hover': {
-          backgroundColor: 'rgba(37, 99, 235, 0.08)',
+          backgroundColor: 'rgba(139, 92, 246, 0.08)',
         },
       },
     },
@@ -100,33 +186,49 @@ export const componentOverrides = {
   MuiTabs: {
     styleOverrides: {
       indicator: {
-        height: 3,
-        borderRadius: '3px 3px 0 0',
-        transition: `all ${duration.standard}ms ${easing.easeInOut}`,
+        height: 2,
+        borderRadius: '2px 2px 0 0',
+        backgroundColor: '#8B5CF6',  // violet-500
       },
     },
   },
 
-  // Chips with hover effect
+  // Chips
   MuiChip: {
     styleOverrides: {
       root: {
-        transition: `all ${duration.shorter}ms ${easing.easeInOut}`,
+        borderRadius: 6,
+        transition: `background-color ${duration.shorter}ms ${easing.easeInOut}`,
+      },
+    },
+  },
+
+  // IconButton
+  MuiIconButton: {
+    styleOverrides: {
+      root: {
+        transition: `opacity ${duration.shorter}ms ${easing.easeInOut}`,
         '&:hover': {
-          transform: 'scale(1.02)',
+          opacity: 0.8,
         },
       },
     },
   },
 
-  // IconButton with hover scale
-  MuiIconButton: {
+  // Divider
+  MuiDivider: {
     styleOverrides: {
       root: {
-        transition: `all ${duration.shorter}ms ${easing.easeInOut}`,
-        '&:hover': {
-          transform: 'scale(1.1)',
-        },
+        borderColor: 'rgba(255, 255, 255, 0.08)',
+      },
+    },
+  },
+
+  // Autocomplete
+  MuiAutocomplete: {
+    styleOverrides: {
+      inputRoot: {
+        borderRadius: 6,
       },
     },
   },
