@@ -39,18 +39,63 @@ import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/
 import { NotificationsPage } from '@backstage/plugin-notifications';
 import { SignalsDisplay } from '@backstage/plugin-signals';
 import { UnifiedThemeProvider } from '@backstage/theme';
-import LightIcon from '@material-ui/icons/WbSunny';
-import DarkIcon from '@material-ui/icons/Brightness2';
 import { customLightTheme, customDarkTheme } from './theme';
+
+// Flat icons
+import {
+  LightModeIcon,
+  DarkModeIcon,
+  CatalogIcon,
+  DocsIcon,
+  ApiIcon,
+  SearchIcon,
+  UserIcon,
+  GroupIcon,
+  WarningIcon,
+  StarIcon,
+  StarFilledIcon,
+  ExternalLinkIcon,
+  ChatIcon,
+  BrokenImageIcon,
+  ScaffolderIcon,
+  ComponentIcon,
+  DomainIcon,
+  SystemIcon,
+  ResourceIcon,
+  LocationIcon,
+} from './components/icons/FlatIcons';
 
 const app = createApp({
   apis,
+  // Register flat icons system-wide
+  icons: {
+    brokenImage: BrokenImageIcon,
+    catalog: CatalogIcon,
+    scaffolder: ScaffolderIcon,
+    techdocs: DocsIcon,
+    search: SearchIcon,
+    chat: ChatIcon,
+    'kind:api': ApiIcon,
+    'kind:component': ComponentIcon,
+    'kind:domain': DomainIcon,
+    'kind:group': GroupIcon,
+    'kind:location': LocationIcon,
+    'kind:resource': ResourceIcon,
+    'kind:system': SystemIcon,
+    'kind:user': UserIcon,
+    user: UserIcon,
+    group: GroupIcon,
+    warning: WarningIcon,
+    star: StarFilledIcon,
+    unstarred: StarIcon,
+    externalLink: ExternalLinkIcon,
+  },
   themes: [
     {
       id: 'light',
       title: 'Light Theme',
       variant: 'light',
-      icon: <LightIcon />,
+      icon: <LightModeIcon />,
       Provider: ({ children }) => (
         <UnifiedThemeProvider theme={customLightTheme}>
           {children}
@@ -61,7 +106,7 @@ const app = createApp({
       id: 'dark',
       title: 'Dark Theme',
       variant: 'dark',
-      icon: <DarkIcon />,
+      icon: <DarkModeIcon />,
       Provider: ({ children }) => (
         <UnifiedThemeProvider theme={customDarkTheme}>
           {children}
