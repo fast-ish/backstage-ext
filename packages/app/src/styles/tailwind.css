@@ -1,92 +1,285 @@
 /*
- * Tailwind CSS integration for Backstage
+ * Tailwind CSS - Backstage Integration
+ * Graphite Style - Dark, minimal with violet accents
  *
- * Note: Preflight (CSS reset) is disabled to avoid conflicts with MUI.
- * All Tailwind classes are prefixed with 'tw-' to prevent naming collisions.
+ * All classes prefixed with 'tw-' to avoid MUI conflicts
  */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/*
- * Custom utility classes for Backstage patterns
- */
+/* ============================================
+   Custom Utilities
+   ============================================ */
+
 @layer utilities {
-  /* Status indicator utilities */
+  /* Status indicators */
   .tw-status-ok {
-    @apply tw-bg-backstage-status-ok;
+    @apply tw-bg-status-ok tw-text-white;
   }
 
   .tw-status-warning {
-    @apply tw-bg-backstage-status-warning;
+    @apply tw-bg-status-warning tw-text-graphite-900;
   }
 
   .tw-status-error {
-    @apply tw-bg-backstage-status-error;
+    @apply tw-bg-status-error tw-text-white;
   }
 
-  .tw-status-running {
-    @apply tw-bg-backstage-status-running;
+  .tw-status-info {
+    @apply tw-bg-violet-500 tw-text-white;
   }
 
-  /* Card utilities matching MUI Paper */
-  .tw-paper {
-    @apply tw-bg-backstage-surface-light tw-rounded-mui tw-shadow-mui-1;
+  .tw-status-pending {
+    @apply tw-bg-graphite-500 tw-text-white;
   }
 
-  .tw-paper-elevated {
-    @apply tw-bg-backstage-surface-light tw-rounded-mui tw-shadow-mui-4;
+  /* Surface utilities */
+  .tw-surface {
+    @apply tw-bg-graphite-900 tw-border tw-border-graphite-800 tw-rounded-lg;
   }
 
-  /* Smooth transitions */
-  .tw-transition-card {
-    @apply tw-transition-all tw-duration-mui-standard tw-ease-mui;
+  .tw-surface-raised {
+    @apply tw-bg-graphite-800 tw-border tw-border-graphite-700 tw-rounded-lg;
   }
 
-  /* Hover lift effect */
+  /* Focus ring - violet */
+  .tw-focus-ring {
+    @apply focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-violet-500 focus:tw-ring-offset-2 focus:tw-ring-offset-graphite-900;
+  }
+
+  /* Transition presets */
+  .tw-transition-colors-fast {
+    @apply tw-transition-colors tw-duration-150 tw-ease-out;
+  }
+
+  .tw-transition-all-fast {
+    @apply tw-transition-all tw-duration-150 tw-ease-out;
+  }
+
+  /* Hover lift - subtle */
   .tw-hover-lift {
-    @apply hover:tw--translate-y-0.5 hover:tw-shadow-card-hover tw-transition-card;
+    @apply tw-transition-all tw-duration-200 tw-ease-out;
+    @apply hover:tw--translate-y-0.5 hover:tw-shadow-card-hover;
+  }
+
+  /* Border accent on hover */
+  .tw-hover-border-accent {
+    @apply tw-transition-colors tw-duration-150;
+    @apply hover:tw-border-graphite-600;
+  }
+
+  /* Glow effect */
+  .tw-glow {
+    @apply tw-shadow-glow-violet;
   }
 }
 
-/*
- * Component layer for Backstage-specific components
- */
+/* ============================================
+   Component Layer
+   ============================================ */
+
 @layer components {
-  /* Badge styles */
+  /* Card - dark with subtle border */
+  .tw-card {
+    @apply tw-bg-graphite-900 tw-border tw-border-graphite-800 tw-rounded-lg;
+    @apply tw-transition-all tw-duration-200 tw-ease-out;
+  }
+
+  .tw-card:hover {
+    @apply tw-border-graphite-700;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Badge variants */
   .tw-badge {
-    @apply tw-inline-flex tw-items-center tw-px-2 tw-py-1 tw-text-xs tw-font-medium tw-rounded;
+    @apply tw-inline-flex tw-items-center tw-px-2 tw-py-0.5;
+    @apply tw-text-xs tw-font-medium tw-rounded-md;
+  }
+
+  .tw-badge-primary {
+    @apply tw-badge tw-bg-violet-500/20 tw-text-violet-300;
   }
 
   .tw-badge-success {
-    @apply tw-badge tw-bg-backstage-status-ok tw-text-white;
+    @apply tw-badge tw-bg-green-500/20 tw-text-green-400;
   }
 
   .tw-badge-warning {
-    @apply tw-badge tw-bg-backstage-status-warning tw-text-black;
+    @apply tw-badge tw-bg-amber-500/20 tw-text-amber-400;
   }
 
   .tw-badge-error {
-    @apply tw-badge tw-bg-backstage-status-error tw-text-white;
+    @apply tw-badge tw-bg-red-500/20 tw-text-red-400;
   }
 
-  /* Card with hover effect */
-  .tw-card-interactive {
-    @apply tw-transition-card hover:tw-shadow-card-hover hover:tw--translate-y-1;
+  .tw-badge-neutral {
+    @apply tw-badge tw-bg-graphite-700 tw-text-graphite-300;
   }
 
-  /* Loading shimmer effect */
+  /* Button - violet primary */
+  .tw-btn {
+    @apply tw-inline-flex tw-items-center tw-justify-center;
+    @apply tw-px-4 tw-py-2 tw-text-sm tw-font-medium tw-rounded-md;
+    @apply tw-transition-colors tw-duration-150 tw-ease-out;
+    @apply tw-focus-ring;
+  }
+
+  .tw-btn-primary {
+    @apply tw-btn tw-bg-violet-600 tw-text-white;
+    @apply hover:tw-bg-violet-500;
+  }
+
+  .tw-btn-secondary {
+    @apply tw-btn tw-bg-graphite-700 tw-text-graphite-200;
+    @apply hover:tw-bg-graphite-600;
+  }
+
+  .tw-btn-ghost {
+    @apply tw-btn tw-bg-transparent tw-text-graphite-300;
+    @apply hover:tw-bg-graphite-800;
+  }
+
+  .tw-btn-outline {
+    @apply tw-btn tw-bg-transparent tw-border tw-border-graphite-700 tw-text-graphite-300;
+    @apply hover:tw-bg-graphite-800 hover:tw-border-graphite-600;
+  }
+
+  /* Input - dark styling with violet focus */
+  .tw-input {
+    @apply tw-w-full tw-px-3 tw-py-2;
+    @apply tw-text-sm tw-text-graphite-100;
+    @apply tw-bg-graphite-900 tw-border tw-border-graphite-700 tw-rounded-md;
+    @apply tw-transition-colors tw-duration-150;
+    @apply tw-focus-ring;
+  }
+
+  .tw-input:hover {
+    @apply tw-border-graphite-600 tw-bg-graphite-800;
+  }
+
+  .tw-input:focus {
+    @apply tw-border-violet-500;
+  }
+
+  .tw-input::placeholder {
+    @apply tw-text-graphite-500;
+  }
+
+  /* Select */
+  .tw-select {
+    @apply tw-input tw-appearance-none tw-cursor-pointer;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%239CA3AF' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+  }
+
+  /* Loading shimmer - dark */
   .tw-shimmer {
-    @apply tw-bg-gradient-to-r tw-from-gray-200 tw-via-gray-100 tw-to-gray-200;
-    background-size: 200% 100%;
     @apply tw-animate-shimmer;
+    background: linear-gradient(
+      90deg,
+      #1F2937 25%,
+      #374151 50%,
+      #1F2937 75%
+    );
+    background-size: 200% 100%;
+  }
+
+  /* Divider */
+  .tw-divider {
+    @apply tw-border-t tw-border-graphite-800;
+  }
+
+  /* Avatar */
+  .tw-avatar {
+    @apply tw-inline-flex tw-items-center tw-justify-center;
+    @apply tw-rounded-full tw-bg-violet-500/20 tw-text-violet-300;
+    @apply tw-font-medium;
+  }
+
+  .tw-avatar-sm {
+    @apply tw-avatar tw-w-8 tw-h-8 tw-text-xs;
+  }
+
+  .tw-avatar-md {
+    @apply tw-avatar tw-w-10 tw-h-10 tw-text-sm;
+  }
+
+  .tw-avatar-lg {
+    @apply tw-avatar tw-w-12 tw-h-12 tw-text-base;
+  }
+
+  /* Chip/Tag */
+  .tw-chip {
+    @apply tw-inline-flex tw-items-center tw-gap-1;
+    @apply tw-px-2 tw-py-1 tw-text-xs tw-font-medium;
+    @apply tw-rounded-full tw-bg-graphite-800 tw-text-graphite-300;
+    @apply tw-transition-colors tw-duration-150;
+  }
+
+  .tw-chip:hover {
+    @apply tw-bg-graphite-700 tw-text-graphite-200;
+  }
+
+  /* Tooltip */
+  .tw-tooltip {
+    @apply tw-px-2 tw-py-1 tw-text-xs tw-font-medium;
+    @apply tw-bg-graphite-700 tw-text-graphite-100 tw-rounded;
+    @apply tw-shadow-lg;
+  }
+
+  /* Skeleton loader */
+  .tw-skeleton {
+    @apply tw-rounded tw-bg-graphite-800;
+    @apply tw-animate-pulse;
+  }
+
+  /* Code block */
+  .tw-code {
+    @apply tw-font-mono tw-text-sm;
+    @apply tw-bg-graphite-950 tw-text-violet-300;
+    @apply tw-px-1.5 tw-py-0.5 tw-rounded;
   }
 }
 
-/*
- * Accessibility: Respect reduced motion preference
- */
+/* ============================================
+   Animations
+   ============================================ */
+
+@layer utilities {
+  .tw-animate-in {
+    @apply tw-animate-fade-in;
+  }
+
+  .tw-animate-in-up {
+    @apply tw-animate-fade-in-up;
+  }
+
+  .tw-animate-in-down {
+    @apply tw-animate-fade-in-down;
+  }
+
+  .tw-animate-slide-left {
+    @apply tw-animate-slide-in-left;
+  }
+
+  .tw-animate-slide-right {
+    @apply tw-animate-slide-in-right;
+  }
+
+  .tw-animate-glow {
+    @apply tw-animate-pulse-glow;
+  }
+}
+
+/* ============================================
+   Accessibility
+   ============================================ */
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
