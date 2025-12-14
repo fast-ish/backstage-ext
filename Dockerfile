@@ -41,12 +41,16 @@ RUN apt-get update && \
       python3-venv \
       curl \
       git \
-      build-essential && \
+      build-essential \
+      ca-certificates && \
     # Install mkdocs for TechDocs local builder
     pip3 install --no-cache-dir --break-system-packages \
       mkdocs-techdocs-core && \
     # Verify mkdocs is installed and in PATH
     which mkdocs && mkdocs --version && \
+    # Download AWS RDS CA certificate bundle for SSL verification
+    curl -o /etc/ssl/certs/rds-ca-bundle.pem https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem && \
+    chmod 644 /etc/ssl/certs/rds-ca-bundle.pem && \
     rm -rf /var/lib/apt/lists/* && \
     corepack enable
 

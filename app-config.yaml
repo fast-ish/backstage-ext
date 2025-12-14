@@ -81,12 +81,45 @@ catalog:
     - type: file
       target: ../../catalog/users.yaml
       rules:
-        - allow: [User]
-    # GitHub repositories with catalog-info.yaml
+        - allow: [User, Group]
+
+    # GitHub template repositories
     - type: url
-      target: https://github.com/stxkxs/devctl-py/blob/main/catalog-info.yaml
+      target: https://github.com/fast-ish/python-service-template/blob/main/catalog-info.yaml
       rules:
-        - allow: [Component, API, Location, Template, System, Domain, Resource]
+        - allow: [Template, Component, API, Location, System, Domain, Resource]
+    - type: url
+      target: https://github.com/fast-ish/java-service-template/blob/main/catalog-info.yaml
+      rules:
+        - allow: [Template, Component, API, Location, System, Domain, Resource]
+    - type: url
+      target: https://github.com/fast-ish/react-frontend-template/blob/main/catalog-info.yaml
+      rules:
+        - allow: [Template, Component, API, Location, System, Domain, Resource]
+    - type: url
+      target: https://github.com/fast-ish/rails-api-template/blob/main/catalog-info.yaml
+      rules:
+        - allow: [Template, Component, API, Location, System, Domain, Resource]
+    - type: url
+      target: https://github.com/fast-ish/data-pipeline-template/blob/main/catalog-info.yaml
+      rules:
+        - allow: [Template, Component, API, Location, System, Domain, Resource]
+    - type: url
+      target: https://github.com/fast-ish/mcp-server-template/blob/main/catalog-info.yaml
+      rules:
+        - allow: [Template, Component, API, Location, System, Domain, Resource]
+    - type: url
+      target: https://github.com/fast-ish/autonomous-coding-agent-template/blob/main/catalog-info.yaml
+      rules:
+        - allow: [Template, Component, API, Location, System, Domain, Resource]
+    - type: url
+      target: https://github.com/fast-ish/team-onboarding-template/blob/main/catalog-info.yaml
+      rules:
+        - allow: [Template, Component, API, Location, System, Domain, Resource]
+    - type: url
+      target: https://github.com/fast-ish/go-cli-template/blob/main/catalog-info.yaml
+      rules:
+        - allow: [Template, Component, API, Location, System, Domain, Resource]
 
 # Kubernetes plugin configuration
 # Production cluster config is in app-config.production.yaml
